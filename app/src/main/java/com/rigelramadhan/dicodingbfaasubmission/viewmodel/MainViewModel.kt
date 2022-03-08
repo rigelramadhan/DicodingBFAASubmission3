@@ -50,26 +50,4 @@ class MainViewModel : ViewModel() {
             }
         })
     }
-
-    fun queryUsersNoLoading(query: String = "a") {
-        _isLoading.postValue(LoadingStatus.LOADED)
-        val client = ApiConfig.getApiService().searchUsers(query)
-        client.enqueue(object : Callback<UsersSearchResponse> {
-            override fun onResponse(
-                call: Call<UsersSearchResponse>,
-                response: Response<UsersSearchResponse>
-            ) {
-                if (response.isSuccessful) {
-                    _usersList.value = response.body()?.items
-                    Log.d(TAG, "${usersList.value}")
-                } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<UsersSearchResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
-    }
 }

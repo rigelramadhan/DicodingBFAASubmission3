@@ -10,7 +10,12 @@
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/drawable/ic_carbon_location_filled.xml" value="0.205" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/fragment_follower.xml" value="0.28306159420289856" />
+        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/fragment_following.xml" value="0.28306159420289856" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/fragment_main.xml" value="0.28306159420289856" />
+        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/fragment_repo.xml" value="0.28306159420289856" />
+        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/item_follow_user.xml" value="0.28306159420289856" />
+        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/item_repo.xml" value="0.25" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/item_user.xml" value="0.25" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/search_fragment.xml" value="0.1859375" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/menu/option_menu.xml" value="0.36302083333333335" />

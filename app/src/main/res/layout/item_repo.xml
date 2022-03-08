@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="?android:attr/colorPrimary"
+    app:cardCornerRadius="12dp"
+    android:layout_marginHorizontal="6dp"
+    android:layout_marginVertical="3dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="12dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/Font.Body"
+            android:text="@string/repo_name"
+            android:layout_marginEnd="16dp"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            app:cardBackgroundColor="@color/blue">
+
+            <TextView
+                android:layout_marginHorizontal="6dp"
+                android:layout_marginVertical="1dp"
+                android:id="@+id/tv_language"
+                style="@style/Font.Captions"
+                android:textColor="@color/white"
+                android:text="@string/repo_name"
+                />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/Font.Captions"
+            android:text="@string/description"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@+id/tv_name"
+            android:ellipsize="end"
+            android:maxLines="1"
+            />
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

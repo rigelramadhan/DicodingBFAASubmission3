@@ -8,7 +8,7 @@ import com.rigelramadhan.dicodingbfaasubmission.databinding.ItemUserBinding
 import com.rigelramadhan.dicodingbfaasubmission.model.ItemsItem
 
 class UserAdapter(private val users: List<ItemsItem>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
-    class ViewHolder(var binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -18,6 +18,8 @@ class UserAdapter(private val users: List<ItemsItem>) : RecyclerView.Adapter<Use
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = users[position]
         holder.binding.tvName.text = user.login
+        holder.binding.tvUrl.text = user.htmlUrl
+
         Glide.with(holder.itemView.context)
             .load(user.avatarUrl)
             .into(holder.binding.imgAvatar)
