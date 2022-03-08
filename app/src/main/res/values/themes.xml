@@ -34,8 +34,12 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="Font.Body.Light">
+        <item name="fontFamily">sans-serif-light</item>
+    </style>
+
     <style name="Font.Captions">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/dark_gray</item>
     </style>
 
