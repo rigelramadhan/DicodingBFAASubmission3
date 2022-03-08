@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rigelramadhan.dicodingbfaasubmission.databinding.ItemUserBinding
-import com.rigelramadhan.dicodingbfaasubmission.model.UsersListResponseItem
+import com.rigelramadhan.dicodingbfaasubmission.model.ItemsItem
 
-class UserAdapter(private val users: List<UsersListResponseItem>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter(private val users: List<ItemsItem>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     class ViewHolder(var binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

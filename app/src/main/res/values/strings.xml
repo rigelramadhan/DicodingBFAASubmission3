@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">DicodingBFAASubmission</string>
+    <string name="app_name">GitHub Users</string>
     <string name="img_desc_avatar">The avatar of the user</string>
     <string name="user_name">Name</string>
     <string name="user_username">\@username</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_title">Enter a name</string>
 </resources>

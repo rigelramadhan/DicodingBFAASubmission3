@@ -5,48 +5,71 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rigelramadhan.dicodingbfaasubmission.ApiConfig
-import com.rigelramadhan.dicodingbfaasubmission.model.UsersListResponse
-import com.rigelramadhan.dicodingbfaasubmission.model.UsersListResponseItem
+import com.rigelramadhan.dicodingbfaasubmission.model.ItemsItem
+import com.rigelramadhan.dicodingbfaasubmission.model.UsersSearchResponse
+import com.rigelramadhan.dicodingbfaasubmission.util.LoadingStatus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel : ViewModel() {
-    private val _usersList = MutableLiveData<List<UsersListResponseItem>>()
-    val usersList: LiveData<List<UsersListResponseItem>> = _usersList
+    private val _usersList = MutableLiveData<List<ItemsItem>>()
+    val usersList: LiveData<List<ItemsItem>> = _usersList
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isLoading = MutableLiveData<LoadingStatus>()
+    val isLoading: LiveData<LoadingStatus> = _isLoading
 
     companion object {
         private const val TAG = "MainViewModel"
     }
 
     init {
-        getUsers()
+        queryUsers()
     }
 
-    private fun getUsers() {
-        _isLoading.value = true
-        val client = ApiConfig.getApiService().getUsers()
-        client.enqueue(object : Callback<List<UsersListResponseItem>> {
+    fun queryUsers(query: String = "a") {
+        _isLoading.postValue(LoadingStatus.LOADING)
+        val client = ApiConfig.getApiService().searchUsers(query)
+        client.enqueue(object : Callback<UsersSearchResponse> {
             override fun onResponse(
-                call: Call<List<UsersListResponseItem>>,
-                response: Response<List<UsersListResponseItem>>
+                call: Call<UsersSearchResponse>,
+                response: Response<UsersSearchResponse>
             ) {
-                _isLoading.value = false
+                _isLoading.postValue(LoadingStatus.LOADED)
                 if (response.isSuccessful) {
-                    _usersList.value = response.body()
+                    _usersList.value = response.body()?.items
+                    Log.d(TAG, "${usersList.value}")
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<List<UsersListResponseItem>>, t: Throwable) {
-                _isLoading.value = false
+            override fun onFailure(call: Call<UsersSearchResponse>, t: Throwable) {
+                _isLoading.postValue(LoadingStatus.LOADED)
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
+        })
+    }
 
+    fun queryUsersNoLoading(query: String = "a") {
+        _isLoading.postValue(LoadingStatus.LOADED)
+        val client = ApiConfig.getApiService().searchUsers(query)
+        client.enqueue(object : Callback<UsersSearchResponse> {
+            override fun onResponse(
+                call: Call<UsersSearchResponse>,
+                response: Response<UsersSearchResponse>
+            ) {
+                if (response.isSuccessful) {
+                    _usersList.value = response.body()?.items
+                    Log.d(TAG, "${usersList.value}")
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UsersSearchResponse>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
         })
     }
 }
