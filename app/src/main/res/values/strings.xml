@@ -17,4 +17,7 @@
     <string name="tab_repo">Repositories</string>
     <string name="tab_followings">Followings</string>
     <string name="tab_followers">Followers</string>
+    <string name="number1">256</string>
+    <string name="number2">24</string>
+    <string name="number3">323</string>
 </resources>

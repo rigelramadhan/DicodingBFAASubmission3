@@ -1,5 +1,6 @@
-package com.rigelramadhan.dicodingbfaasubmission
+package com.rigelramadhan.dicodingbfaasubmission.networking
 
+import com.rigelramadhan.dicodingbfaasubmission.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

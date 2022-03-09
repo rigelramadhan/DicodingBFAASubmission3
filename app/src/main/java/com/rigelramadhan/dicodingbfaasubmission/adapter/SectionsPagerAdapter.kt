@@ -20,5 +20,4 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
 
         return fragment as Fragment
     }
-
 }

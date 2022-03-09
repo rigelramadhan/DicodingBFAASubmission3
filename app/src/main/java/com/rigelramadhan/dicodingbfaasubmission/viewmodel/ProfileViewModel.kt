@@ -2,7 +2,7 @@ package com.rigelramadhan.dicodingbfaasubmission.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.rigelramadhan.dicodingbfaasubmission.ApiConfig
+import com.rigelramadhan.dicodingbfaasubmission.networking.ApiConfig
 import com.rigelramadhan.dicodingbfaasubmission.model.*
 import com.rigelramadhan.dicodingbfaasubmission.util.LoadingStatus
 import kotlinx.coroutines.Dispatchers
@@ -41,7 +41,6 @@ class ProfileViewModel(private val login: String): ViewModel() {
         val client = ApiConfig.getApiService().getUser(login)
         client.enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                _isLoading.postValue(LoadingStatus.LOADED)
                 if (response.isSuccessful) {
                     _user.value = response.body()
                     loadFragmentData()
@@ -73,14 +72,12 @@ class ProfileViewModel(private val login: String): ViewModel() {
     }
 
     private fun loadFollowings() {
-        _isLoading.postValue(LoadingStatus.LOADING)
-        val client = ApiConfig.getApiService().getUserFollowings(login)
+        val client = ApiConfig.getApiService().getUserFollowings(login, user.value!!.following)
         client.enqueue(object : Callback<List<FollowingsResponseItem>> {
             override fun onResponse(
                 call: Call<List<FollowingsResponseItem>>,
                 response: Response<List<FollowingsResponseItem>>
             ) {
-                _isLoading.postValue(LoadingStatus.LOADED)
                 if (response.isSuccessful) {
                     _followings.value = response.body()
                 } else {
@@ -96,16 +93,15 @@ class ProfileViewModel(private val login: String): ViewModel() {
     }
 
     private fun loadFollowers() {
-        _isLoading.postValue(LoadingStatus.LOADING)
-        val client = ApiConfig.getApiService().getUserFollowers(login)
+        val client = ApiConfig.getApiService().getUserFollowers(login, user.value!!.followers)
         client.enqueue(object : Callback<List<FollowersResponseItem>> {
             override fun onResponse(
                 call: Call<List<FollowersResponseItem>>,
                 response: Response<List<FollowersResponseItem>>
             ) {
-                _isLoading.postValue(LoadingStatus.LOADED)
                 if (response.isSuccessful) {
                     _followers.value = response.body()
+                    Log.d(TAG, "Followers Response Count: ${response.body()?.size}")
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
@@ -120,7 +116,7 @@ class ProfileViewModel(private val login: String): ViewModel() {
 
     private fun loadRepos() {
         _isLoading.postValue(LoadingStatus.LOADING)
-        val client = ApiConfig.getApiService().getUserRepos(login)
+        val client = ApiConfig.getApiService().getUserRepos(login, user.value!!.publicRepos)
         client.enqueue(object : Callback<List<RepoResponseItem>> {
             override fun onResponse(
                 call: Call<List<RepoResponseItem>>,
@@ -129,6 +125,7 @@ class ProfileViewModel(private val login: String): ViewModel() {
                 _isLoading.postValue(LoadingStatus.LOADED)
                 if (response.isSuccessful) {
                     _repos.value = response.body()
+                    Log.d(TAG, "Repos Response Count: ${response.body()?.size}")
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }

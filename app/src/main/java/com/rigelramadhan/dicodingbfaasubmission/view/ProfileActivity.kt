@@ -30,6 +30,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
     private lateinit var profileUrl: String
+
     val profileViewModel: ProfileViewModel by viewModels {
         val profileUrl = intent.getStringExtra(EXTRA_URL)
         this.profileUrl = profileUrl!!
@@ -49,6 +50,10 @@ class ProfileActivity : AppCompatActivity() {
             binding.tvUsername.text = user.login
             binding.tvDescription.text = user.bio
             binding.tvLocation.text = user.location
+
+            binding.tvReposNumber.text = user.publicRepos.toString()
+            binding.tvFollowersNumber.text = user.followers.toString()
+            binding.tvFollowingsNumber.text = user.following.toString()
 
             Glide.with(this)
                 .load(user.avatarUrl)

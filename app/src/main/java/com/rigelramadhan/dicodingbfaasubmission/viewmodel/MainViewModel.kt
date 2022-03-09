@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rigelramadhan.dicodingbfaasubmission.ApiConfig
+import com.rigelramadhan.dicodingbfaasubmission.networking.ApiConfig
 import com.rigelramadhan.dicodingbfaasubmission.model.ItemsItem
 import com.rigelramadhan.dicodingbfaasubmission.model.UsersSearchResponse
 import com.rigelramadhan.dicodingbfaasubmission.util.LoadingStatus
