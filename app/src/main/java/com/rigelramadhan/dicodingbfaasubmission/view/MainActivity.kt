@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.usersList.observe(this) {
             binding.rvUsers.apply {
-                adapter = UserAdapter(it)
+                adapter = UserAdapter(this@MainActivity, it)
                 layoutManager = LinearLayoutManager(this@MainActivity)
             }
         }

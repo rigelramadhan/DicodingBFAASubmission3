@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.rigelramadhan.dicodingbfaasubmission.R
+import com.rigelramadhan.dicodingbfaasubmission.adapter.RepoAdapter
 import com.rigelramadhan.dicodingbfaasubmission.databinding.FragmentRepoBinding
 
 class RepoFragment : Fragment() {
@@ -18,6 +20,15 @@ class RepoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRepoBinding.inflate(inflater, container, false)
+
+        val profileActivity = activity as ProfileActivity
+        profileActivity.profileViewModel.repos.observe(profileActivity) {
+            binding.rvRepos.apply {
+                adapter = RepoAdapter(it)
+                layoutManager = LinearLayoutManager(profileActivity)
+            }
+        }
+
         return binding.root
     }
 

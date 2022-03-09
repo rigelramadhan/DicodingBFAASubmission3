@@ -1,6 +1,5 @@
 package com.rigelramadhan.dicodingbfaasubmission
-import com.rigelramadhan.dicodingbfaasubmission.model.UserResponse
-import com.rigelramadhan.dicodingbfaasubmission.model.UsersSearchResponse
+import com.rigelramadhan.dicodingbfaasubmission.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,4 +11,13 @@ interface ApiService {
 
     @GET("users/{login}")
     fun getUser(@Path("login") login: String): Call<UserResponse>
+
+    @GET("users/{login}/repos")
+    fun getUserRepos(@Path("login") login: String): Call<List<RepoResponseItem>>
+
+    @GET("users/{login}/followers")
+    fun getUserFollowers(@Path("login") login: String): Call<List<FollowersResponseItem>>
+
+    @GET("users/{login}/following")
+    fun getUserFollowings(@Path("login") login: String): Call<List<FollowingsResponseItem>>
 }

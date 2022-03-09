@@ -2,17 +2,24 @@ package com.rigelramadhan.dicodingbfaasubmission.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.rigelramadhan.dicodingbfaasubmission.R
 import com.rigelramadhan.dicodingbfaasubmission.adapter.SectionsPagerAdapter
 import com.rigelramadhan.dicodingbfaasubmission.databinding.ActivityProfileBinding
+import com.rigelramadhan.dicodingbfaasubmission.util.LoadingStatus
+import com.rigelramadhan.dicodingbfaasubmission.viewmodel.ProfileViewModel
 
 class ProfileActivity : AppCompatActivity() {
 
     companion object {
+        const val EXTRA_URL = "extra_url"
+
         @StringRes
         private val TAB_TITLES = intArrayOf(
             R.string.tab_repo,
@@ -22,11 +29,36 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityProfileBinding
+    private lateinit var profileUrl: String
+    val profileViewModel: ProfileViewModel by viewModels {
+        val profileUrl = intent.getStringExtra(EXTRA_URL)
+        this.profileUrl = profileUrl!!
+        ProfileViewModel.ProfileViewModelFactory(profileUrl)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val actionBar = supportActionBar
+        actionBar?.hide()
+
+        profileViewModel.user.observe(this) { user ->
+            binding.tvName.text = user.name
+            binding.tvUsername.text = user.login
+            binding.tvDescription.text = user.bio
+            binding.tvLocation.text = user.location
+
+            Glide.with(this)
+                .load(user.avatarUrl)
+                .into(binding.imgAvatar)
+        }
+
+        profileViewModel.isLoading.observe(this) { loading ->
+            if (loading == LoadingStatus.LOADING) binding.progressBar.visibility = View.VISIBLE
+            else binding.progressBar.visibility = View.INVISIBLE
+        }
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         val viewPager: ViewPager2 = binding.viewPager

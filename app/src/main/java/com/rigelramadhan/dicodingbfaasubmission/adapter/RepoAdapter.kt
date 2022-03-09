@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rigelramadhan.dicodingbfaasubmission.databinding.ItemRepoBinding
+import com.rigelramadhan.dicodingbfaasubmission.model.RepoResponseItem
 
-class RepoAdapter() : RecyclerView.Adapter<RepoAdapter.ViewHolder>() {
-    inner class ViewHolder(var binding: ItemRepoBinding) : RecyclerView.ViewHolder(binding.root)
+class RepoAdapter(private val repos: List<RepoResponseItem>) : RecyclerView.Adapter<RepoAdapter.ViewHolder>() {
+    inner class ViewHolder(val binding: ItemRepoBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemRepoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -14,10 +15,12 @@ class RepoAdapter() : RecyclerView.Adapter<RepoAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val repo = repos[position]
+
+        holder.binding.tvName.text = repo.fullName
+        holder.binding.tvDescription.text = repo.description
+        holder.binding.tvLanguage.text = repo.language
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() = repos.size
 }
