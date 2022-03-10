@@ -1,38 +1,39 @@
 package com.rigelramadhan.dicodingbfaasubmission.networking
 import com.rigelramadhan.dicodingbfaasubmission.model.*
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
-    @GET("search/users")
-    @Headers("Authorization: token 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")
-    fun searchUsers(@Query("q") query: String): Call<UsersSearchResponse>
+    @GET("/search/users")
+    fun searchUsers(
+        @Query("q") query: String,
+        @Header("Authorization") token: String
+    ): Call<UsersSearchResponse>
 
-    @GET("users/{login}")
-    @Headers("Authorization: token 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")
-    fun getUser(@Path("login") login: String): Call<UserResponse>
+    @GET("/users/{login}")
+    fun getUser(
+        @Path("login") login: String,
+        @Header("Authorization") token: String
+    ): Call<UserResponse>
 
-    @GET("users/{login}/repos")
-    @Headers("Authorization: token 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")
+    @GET("/users/{login}/repos")
     fun getUserRepos(
         @Path("login") login: String,
+        @Header("Authorization") token: String,
         @Query("per_page") perPage: Int
     ): Call<List<RepoResponseItem>>
 
-    @GET("users/{login}/followers")
-    @Headers("Authorization: token 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")
+    @GET("/users/{login}/followers")
     fun getUserFollowers(
         @Path("login") login: String,
+        @Header("Authorization") token: String,
         @Query("per_page") perPage: Int
     ): Call<List<FollowersResponseItem>>
 
-    @GET("users/{login}/following")
-    @Headers("Authorization: token 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")
+    @GET("/users/{login}/following")
     fun getUserFollowings(
         @Path("login") login: String,
+        @Header("Authorization") token: String,
         @Query("per_page") perPage: Int
     ): Call<List<FollowingsResponseItem>>
 }

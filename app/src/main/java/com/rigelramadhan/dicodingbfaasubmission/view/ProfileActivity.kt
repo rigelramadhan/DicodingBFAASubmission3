@@ -46,14 +46,42 @@ class ProfileActivity : AppCompatActivity() {
         actionBar?.hide()
 
         profileViewModel.user.observe(this) { user ->
-            binding.tvName.text = user.name
-            binding.tvUsername.text = user.login
-            binding.tvDescription.text = user.bio
-            binding.tvLocation.text = user.location
+            binding.tvName.apply {
+                text = user.name
+                visibility = View.VISIBLE
+            }
 
-            binding.tvReposNumber.text = user.publicRepos.toString()
-            binding.tvFollowersNumber.text = user.followers.toString()
-            binding.tvFollowingsNumber.text = user.following.toString()
+            binding.tvUsername.apply {
+                text = user.login
+                visibility = View.VISIBLE
+            }
+
+            binding.tvDescription.apply {
+                text = user.bio
+                visibility = View.VISIBLE
+            }
+
+            binding.tvLocation.apply {
+                text = user.location
+                visibility = View.VISIBLE
+            }
+
+            binding.tvReposNumber.apply {
+                text = user.publicRepos.toString()
+                visibility = View.VISIBLE
+            }
+
+            binding.tvFollowersNumber.apply {
+                text = user.followers.toString()
+                visibility = View.VISIBLE
+            }
+
+            binding.tvFollowingsNumber.apply {
+                text = user.following.toString()
+                visibility = View.VISIBLE
+            }
+
+            binding.icLocation.visibility = if (user.location == null) View.INVISIBLE else View.VISIBLE
 
             Glide.with(this)
                 .load(user.avatarUrl)

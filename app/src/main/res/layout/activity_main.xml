@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
+    <TextView
+        android:id="@+id/tv_no_user_found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_user_found"
+        android:textAlignment="center"
+        style="@style/Font.Body.Light"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_users" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_users"
         android:layout_width="match_parent"

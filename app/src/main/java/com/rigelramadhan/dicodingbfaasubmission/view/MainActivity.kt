@@ -2,16 +2,12 @@ package com.rigelramadhan.dicodingbfaasubmission.view
 
 import android.app.SearchManager
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rigelramadhan.dicodingbfaasubmission.R
@@ -28,12 +24,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setTheme(R.style.Theme_DicodingBFAASubmission)
         setContentView(binding.root)
 
         mainViewModel = ViewModelProvider(this,
             ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
 
         mainViewModel.usersList.observe(this) {
+            binding.tvNoUserFound.visibility = if (it.isNullOrEmpty()) {
+                View.VISIBLE
+            } else {
+                View.INVISIBLE
+            }
+
             binding.rvUsers.apply {
                 adapter = UserAdapter(this@MainActivity, it)
                 layoutManager = LinearLayoutManager(this@MainActivity)
@@ -61,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()
+
                 mainViewModel.queryUsers(query ?: "a")
                 return true
             }

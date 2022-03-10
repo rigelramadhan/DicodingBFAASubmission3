@@ -22,11 +22,20 @@ class FollowerFragment : Fragment() {
         _binding = FragmentFollowerBinding.inflate(inflater, container, false)
 
         val profileActivity = activity as ProfileActivity
+
+        profileActivity.profileViewModel.user.observe(profileActivity) {
+            if (it.followers <= 0) {
+                binding.tvPrivateFollower.text = getString(R.string.no_follower)
+            }
+        }
+
         profileActivity.profileViewModel.followers.observe(profileActivity) {
             binding.rvFollowers.apply {
                 adapter = UserFollowersAdapter(profileActivity, it)
                 layoutManager = LinearLayoutManager(profileActivity)
             }
+
+            binding.tvPrivateFollower.visibility = if (it.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
         }
 
         return binding.root

@@ -3,13 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/drawable/background_gradient_blue.xml" value="0.194" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/drawable/button_primary.xml" value="0.215625" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/drawable/button_small_primary.xml" value="0.215625" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/drawable/button_small_secondary.xml" value="0.215625" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/drawable/edittext_search.xml" value="0.25" />
+        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.205" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/drawable/ic_carbon_location_filled.xml" value="0.205" />
+        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/drawable/ic_location_filled.xml" value="0.205" />
+        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/drawable/splash_background.xml" value="0.194" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/activity_profile.xml" value="0.33" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/fragment_follower.xml" value="0.28306159420289856" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/fragment_following.xml" value="0.28306159420289856" />
         <entry key="..\:/DicodingProjects/DicodingBFAASubmission/app/src/main/res/layout/fragment_main.xml" value="0.28306159420289856" />

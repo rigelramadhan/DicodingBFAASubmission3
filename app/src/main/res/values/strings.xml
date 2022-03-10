@@ -20,4 +20,10 @@
     <string name="number1">256</string>
     <string name="number2">24</string>
     <string name="number3">323</string>
+    <string name="no_repos">There are no public repos</string>
+    <string name="private_following">This user\'s following is private</string>
+    <string name="private_follower">This user\'s follower is private</string>
+    <string name="no_following">This user has no following</string>
+    <string name="no_follower">This user has no follower</string>
+    <string name="no_user_found">No user found</string>
 </resources>

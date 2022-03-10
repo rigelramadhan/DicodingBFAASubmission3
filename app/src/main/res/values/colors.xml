@@ -8,10 +8,12 @@
     <color name="black">#2E2E2E</color>
     <color name="white">#FFFFFFFF</color>
 
+<!--    FOR LIGHT THEME-->
     <color name="blue">#25ACF5</color>
     <color name="blue_darker">#219ADB</color>
     <color name="blue_dark">#1B7FB5</color>
     <color name="blue_darkest">#125275</color>
     <color name="gray">#F6F6F6</color>
     <color name="dark_gray">#CACACA</color>
+    <color name="darkest_gray">#6E6E6E</color>
 </resources>

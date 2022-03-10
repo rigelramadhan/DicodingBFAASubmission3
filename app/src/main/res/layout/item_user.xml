@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/tv_name"
-            style="@style/Font.Header.Blue"
+            style="@style/Font.Header.Medium.Blue"
             android:text="@string/user_name"
             />
 

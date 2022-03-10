@@ -38,7 +38,7 @@ class ProfileViewModel(private val login: String): ViewModel() {
 
     private fun loadUser() {
         _isLoading.postValue(LoadingStatus.LOADING)
-        val client = ApiConfig.getApiService().getUser(login)
+        val client = ApiConfig.getApiService().getUser(login, ApiConfig.TOKEN)
         client.enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {
@@ -72,7 +72,7 @@ class ProfileViewModel(private val login: String): ViewModel() {
     }
 
     private fun loadFollowings() {
-        val client = ApiConfig.getApiService().getUserFollowings(login, user.value!!.following)
+        val client = ApiConfig.getApiService().getUserFollowings(login, ApiConfig.TOKEN, user.value!!.following)
         client.enqueue(object : Callback<List<FollowingsResponseItem>> {
             override fun onResponse(
                 call: Call<List<FollowingsResponseItem>>,
@@ -93,7 +93,7 @@ class ProfileViewModel(private val login: String): ViewModel() {
     }
 
     private fun loadFollowers() {
-        val client = ApiConfig.getApiService().getUserFollowers(login, user.value!!.followers)
+        val client = ApiConfig.getApiService().getUserFollowers(login, ApiConfig.TOKEN, user.value!!.followers)
         client.enqueue(object : Callback<List<FollowersResponseItem>> {
             override fun onResponse(
                 call: Call<List<FollowersResponseItem>>,
@@ -116,7 +116,7 @@ class ProfileViewModel(private val login: String): ViewModel() {
 
     private fun loadRepos() {
         _isLoading.postValue(LoadingStatus.LOADING)
-        val client = ApiConfig.getApiService().getUserRepos(login, user.value!!.publicRepos)
+        val client = ApiConfig.getApiService().getUserRepos(login, ApiConfig.TOKEN, user.value!!.publicRepos)
         client.enqueue(object : Callback<List<RepoResponseItem>> {
             override fun onResponse(
                 call: Call<List<RepoResponseItem>>,

@@ -29,7 +29,7 @@ class MainViewModel : ViewModel() {
 
     fun queryUsers(query: String = "a") {
         _isLoading.postValue(LoadingStatus.LOADING)
-        val client = ApiConfig.getApiService().searchUsers(query)
+        val client = ApiConfig.getApiService().searchUsers(query, ApiConfig.TOKEN)
         client.enqueue(object : Callback<UsersSearchResponse> {
             override fun onResponse(
                 call: Call<UsersSearchResponse>,
