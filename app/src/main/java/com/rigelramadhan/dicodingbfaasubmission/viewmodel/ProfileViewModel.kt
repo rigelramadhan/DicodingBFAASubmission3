@@ -46,11 +46,13 @@ class ProfileViewModel(private val login: String): ViewModel() {
                     loadFragmentData()
                     Log.d(TAG, "User: ${response.body()}")
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    _isLoading.postValue(LoadingStatus.FAILED)
+                    Log.e(TAG, "onResponseFailure: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                _isLoading.postValue(LoadingStatus.FAILED)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 
@@ -81,7 +83,7 @@ class ProfileViewModel(private val login: String): ViewModel() {
                 if (response.isSuccessful) {
                     _followings.value = response.body()
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "onResponseFailure: ${response.message()}")
                 }
             }
 
@@ -103,7 +105,7 @@ class ProfileViewModel(private val login: String): ViewModel() {
                     _followers.value = response.body()
                     Log.d(TAG, "Followers Response Count: ${response.body()?.size}")
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "onResponseFailure: ${response.message()}")
                 }
             }
 
@@ -127,7 +129,7 @@ class ProfileViewModel(private val login: String): ViewModel() {
                     _repos.value = response.body()
                     Log.d(TAG, "Repos Response Count: ${response.body()?.size}")
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "onResponseFailure: ${response.message()}")
                 }
             }
 

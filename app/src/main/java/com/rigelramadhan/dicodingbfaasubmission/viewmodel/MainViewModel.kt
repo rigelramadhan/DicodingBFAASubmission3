@@ -35,18 +35,19 @@ class MainViewModel : ViewModel() {
                 call: Call<UsersSearchResponse>,
                 response: Response<UsersSearchResponse>
             ) {
-                _isLoading.postValue(LoadingStatus.LOADED)
                 if (response.isSuccessful) {
+                    _isLoading.postValue(LoadingStatus.LOADED)
                     _usersList.value = response.body()?.items
                     Log.d(TAG, "${usersList.value}")
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    _isLoading.postValue(LoadingStatus.FAILED)
+                    Log.e(TAG, "onResponseFailure: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<UsersSearchResponse>, t: Throwable) {
-                _isLoading.postValue(LoadingStatus.LOADED)
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                _isLoading.postValue(LoadingStatus.FAILED)
+                Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }

@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object {
-        const val TOKEN = "token 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"
+        const val TOKEN = BuildConfig.GITHUB_TOKEN
 
         fun getApiService(): ApiService {
             val loggingInterceptor = if (BuildConfig.DEBUG) {

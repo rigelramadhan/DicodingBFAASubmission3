@@ -3,6 +3,7 @@ package com.rigelramadhan.dicodingbfaasubmission.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
@@ -89,8 +90,14 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         profileViewModel.isLoading.observe(this) { loading ->
-            if (loading == LoadingStatus.LOADING) binding.progressBar.visibility = View.VISIBLE
-            else binding.progressBar.visibility = View.INVISIBLE
+            when (loading) {
+                LoadingStatus.LOADING -> binding.progressBar.visibility = View.VISIBLE
+                LoadingStatus.FAILED -> {
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this@ProfileActivity, "Users list failed to show.", Toast.LENGTH_SHORT).show()
+                }
+                else -> binding.progressBar.visibility = View.INVISIBLE
+            }
         }
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -46,6 +47,10 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.isLoading.observe(this) {
             when (it) {
                 LoadingStatus.LOADING -> binding.progressBar.visibility = View.VISIBLE
+                LoadingStatus.FAILED -> {
+                    binding.progressBar.visibility = View.INVISIBLE
+                    Toast.makeText(this@MainActivity, "Users list failed to show.", Toast.LENGTH_SHORT).show()
+                }
                 else -> binding.progressBar.visibility = View.INVISIBLE
             }
         }
