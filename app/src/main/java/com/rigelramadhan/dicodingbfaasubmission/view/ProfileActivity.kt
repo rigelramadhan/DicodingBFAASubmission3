@@ -44,7 +44,7 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val actionBar = supportActionBar
-        actionBar?.hide()
+        actionBar?.title = "Profile"
 
         profileViewModel.user.observe(this) { user ->
             binding.tvName.apply {

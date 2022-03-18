@@ -2,8 +2,11 @@ package com.rigelramadhan.dicodingbfaasubmission.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.rigelramadhan.dicodingbfaasubmission.networking.ApiConfig
-import com.rigelramadhan.dicodingbfaasubmission.model.*
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.FollowersResponseItem
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.FollowingsResponseItem
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.RepoResponseItem
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.UserResponse
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.retrofit.ApiConfig
 import com.rigelramadhan.dicodingbfaasubmission.util.LoadingStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

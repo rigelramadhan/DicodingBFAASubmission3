@@ -3,7 +3,7 @@
     <string name="img_desc_avatar">The avatar of the user</string>
     <string name="user_name">Name</string>
     <string name="user_username">\@username</string>
-    
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_title">Enter a name</string>
     <string name="username">\@username</string>
@@ -12,8 +12,8 @@
     <string name="description">This is the description</string>
     <string name="html_url">https://github.com/url</string>
     <string name="repo_name">Repo Name</string>
-    
-<!--  VIEW PAGER  -->
+
+    <!--  VIEW PAGER  -->
     <string name="tab_repo">Repositories</string>
     <string name="tab_followings">Followings</string>
     <string name="tab_followers">Followers</string>
@@ -26,4 +26,5 @@
     <string name="no_following">This user has no following</string>
     <string name="no_follower">This user has no follower</string>
     <string name="no_user_found">No user found</string>
+    <string name="favorites">Favorites</string>
 </resources>

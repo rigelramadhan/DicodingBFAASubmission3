@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rigelramadhan.dicodingbfaasubmission.networking.ApiConfig
-import com.rigelramadhan.dicodingbfaasubmission.model.ItemsItem
-import com.rigelramadhan.dicodingbfaasubmission.model.UsersSearchResponse
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.retrofit.ApiConfig
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.ItemsItem
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.UsersSearchResponse
 import com.rigelramadhan.dicodingbfaasubmission.util.LoadingStatus
 import retrofit2.Call
 import retrofit2.Callback

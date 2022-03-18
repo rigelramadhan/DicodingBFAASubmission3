@@ -1,4 +1,4 @@
-package com.rigelramadhan.dicodingbfaasubmission.networking
+package com.rigelramadhan.dicodingbfaasubmission.data.remote.retrofit
 
 import com.rigelramadhan.dicodingbfaasubmission.BuildConfig
 import okhttp3.OkHttpClient

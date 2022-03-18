@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rigelramadhan.dicodingbfaasubmission.databinding.ItemFollowUserBinding
-import com.rigelramadhan.dicodingbfaasubmission.model.FollowersResponseItem
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.FollowersResponseItem
 import com.rigelramadhan.dicodingbfaasubmission.view.ProfileActivity
 
 class UserFollowersAdapter(private val activity: AppCompatActivity, private val users: List<FollowersResponseItem>) : RecyclerView.Adapter<UserFollowersAdapter.ViewHolder>() {

@@ -1,4 +1,4 @@
-package com.rigelramadhan.dicodingbfaasubmission.model
+package com.rigelramadhan.dicodingbfaasubmission.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 

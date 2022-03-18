@@ -9,10 +9,11 @@
         <item name="colorSecondary">@color/blue</item>
         <item name="colorSecondaryVariant">@color/blue_dark</item>
         <item name="colorOnSecondary">@color/black</item>
+        <item name="colorAccent">@color/blue_darkest</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/blue_dark</item>
         <!-- Customize your theme here. -->
-
+        <item name="titleTextColor">@color/black</item>
     </style>
     
     <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">

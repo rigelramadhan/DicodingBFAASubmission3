@@ -1,5 +1,5 @@
-package com.rigelramadhan.dicodingbfaasubmission.networking
-import com.rigelramadhan.dicodingbfaasubmission.model.*
+package com.rigelramadhan.dicodingbfaasubmission.data.remote.retrofit
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.*
 import retrofit2.Call
 import retrofit2.http.*
 

@@ -1,14 +1,8 @@
-package com.rigelramadhan.dicodingbfaasubmission.model
+package com.rigelramadhan.dicodingbfaasubmission.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class FollowingsResponse(
-
-	@field:SerializedName("FollowingsResponse")
-	val followingsResponse: List<FollowingsResponseItem>
-)
-
-data class FollowingsResponseItem(
+data class FollowersResponseItem(
 
 	@field:SerializedName("gists_url")
 	val gistsUrl: String,

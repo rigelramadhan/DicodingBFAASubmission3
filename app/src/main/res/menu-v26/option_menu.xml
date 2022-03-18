@@ -15,6 +15,7 @@
         android:icon="@drawable/ic_baseline_favorite_24"
         android:title="@string/favorites"
         app:showAsAction="ifRoom"
+        android:iconTint="@color/black"
         />
 
 </menu>

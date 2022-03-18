@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -15,7 +17,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "GITHUB_TOKEN", '"token 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"')
+        buildConfigField("String", "GITHUB_TOKEN", '"token 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"')
     }
 
     buildFeatures {
@@ -65,4 +67,8 @@ dependencies {
 
     // VIEW PAGER2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    // ROOM
+    implementation 'androidx.room:room-runtime:2.4.2'
+    kapt 'androidx.room:room-compiler:2.4.2'
 }

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rigelramadhan.dicodingbfaasubmission.databinding.ItemUserBinding
-import com.rigelramadhan.dicodingbfaasubmission.model.ItemsItem
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.ItemsItem
 import com.rigelramadhan.dicodingbfaasubmission.view.ProfileActivity
 
 class UserAdapter(private val activity: AppCompatActivity, private val users: List<ItemsItem>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {

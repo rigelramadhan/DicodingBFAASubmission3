@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rigelramadhan.dicodingbfaasubmission.databinding.ItemRepoBinding
-import com.rigelramadhan.dicodingbfaasubmission.model.RepoResponseItem
+import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.RepoResponseItem
 
 class RepoAdapter(private val repos: List<RepoResponseItem>) : RecyclerView.Adapter<RepoAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemRepoBinding) : RecyclerView.ViewHolder(binding.root)
