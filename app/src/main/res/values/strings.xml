@@ -27,4 +27,5 @@
     <string name="no_follower">This user has no follower</string>
     <string name="no_user_found">No user found</string>
     <string name="favorites">Favorites</string>
+    <string name="description_favorite">An icon for favorite.</string>
 </resources>
