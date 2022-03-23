@@ -8,20 +8,23 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rigelramadhan.dicodingbfaasubmission.R
 import com.rigelramadhan.dicodingbfaasubmission.adapter.UserAdapter
+import com.rigelramadhan.dicodingbfaasubmission.data.Result
 import com.rigelramadhan.dicodingbfaasubmission.databinding.ActivityMainBinding
-import com.rigelramadhan.dicodingbfaasubmission.util.LoadingStatus
 import com.rigelramadhan.dicodingbfaasubmission.viewmodel.MainViewModel
+import com.rigelramadhan.dicodingbfaasubmission.viewmodel.MainViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    lateinit var mainViewModel: MainViewModel
+    val mainViewModel: MainViewModel by viewModels {
+        MainViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,31 +32,39 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_DicodingBFAASubmission)
         setContentView(binding.root)
 
-        mainViewModel = ViewModelProvider(this,
-            ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
-
-        mainViewModel.usersList.observe(this) {
-            binding.tvNoUserFound.visibility = if (it.isNullOrEmpty()) {
-                View.VISIBLE
+        val userAdapter = UserAdapter(this) {
+            if (it.isFavorite) {
+                mainViewModel.deleteUserFromFavorite(it)
             } else {
-                View.INVISIBLE
-            }
-
-            binding.rvUsers.apply {
-                adapter = UserAdapter(this@MainActivity, it)
-                layoutManager = LinearLayoutManager(this@MainActivity)
+                mainViewModel.addUserToFavorite(it)
             }
         }
 
-        mainViewModel.isLoading.observe(this) {
-            when (it) {
-                LoadingStatus.LOADING -> binding.progressBar.visibility = View.VISIBLE
-                LoadingStatus.FAILED -> {
-                    binding.progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this@MainActivity, "Users list failed to show.", Toast.LENGTH_SHORT).show()
+        mainViewModel.getUsers().observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(this, "Cannot load data ${result.error}", Toast.LENGTH_SHORT).show()
+                    }
+                    is Result.Success -> {
+                        binding.progressBar.visibility = View.INVISIBLE
+                        userAdapter.submitList(result.data)
+                    }
                 }
-                else -> binding.progressBar.visibility = View.INVISIBLE
             }
+
+            binding.tvNoUserFound.visibility = if (mainViewModel.isDataEmpty()) {
+                View.INVISIBLE
+            } else {
+                View.VISIBLE
+            }
+        }
+
+        binding.rvUsers.apply {
+            adapter = userAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
         }
     }
 
@@ -71,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()
 
-                mainViewModel.queryUsers(query ?: "a")
+                mainViewModel.getUsers(query ?: "a")
                 return true
             }
 
@@ -87,7 +98,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
-                mainViewModel.queryUsers()
+                mainViewModel.getUsers()
                 return true
             }
 

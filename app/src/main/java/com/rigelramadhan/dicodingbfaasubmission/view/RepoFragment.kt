@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.rigelramadhan.dicodingbfaasubmission.R
 import com.rigelramadhan.dicodingbfaasubmission.adapter.RepoAdapter
+import com.rigelramadhan.dicodingbfaasubmission.data.Result
 import com.rigelramadhan.dicodingbfaasubmission.databinding.FragmentRepoBinding
 
 class RepoFragment : Fragment() {
@@ -21,14 +24,36 @@ class RepoFragment : Fragment() {
         _binding = FragmentRepoBinding.inflate(inflater, container, false)
 
         val profileActivity = activity as ProfileActivity
+        profileActivity.profileViewModel.getProfile().observe(profileActivity) { user ->
+            if (user != null) {
+                profileActivity.profileViewModel.getProfileRepos(user).observe(profileActivity) {
+                    when (it) {
+                        is Result.Success -> {
+                            profileActivity.progressBar.visibility = View.INVISIBLE
+                            val data = it.data
+                            binding.rvRepos.apply {
+                                adapter = RepoAdapter(data)
+                                layoutManager = LinearLayoutManager(profileActivity)
+                            }
 
-        profileActivity.profileViewModel.repos.observe(profileActivity) {
-            binding.rvRepos.apply {
-                adapter = RepoAdapter(it)
-                layoutManager = LinearLayoutManager(profileActivity)
+                            binding.tvPublicReposStatus.visibility =
+                                if (data.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
+                        }
+
+                        is Result.Error -> {
+                            profileActivity.progressBar.visibility = View.INVISIBLE
+                            Toast.makeText(requireContext(), "Can't load repositories: ${it.error}", Toast.LENGTH_SHORT).show()
+
+                            binding.tvPublicReposStatus.text = getString(R.string.repositories_failed_to_load)
+                        }
+
+                        is Result.Loading -> {
+                            profileActivity.progressBar.visibility = View.VISIBLE
+                        }
+                    }
+
+                }
             }
-
-            binding.tvPublicReposStatus.visibility = if (it.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
         }
 
         return binding.root

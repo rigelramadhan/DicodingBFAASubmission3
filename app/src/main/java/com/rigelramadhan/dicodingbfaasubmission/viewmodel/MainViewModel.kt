@@ -1,54 +1,21 @@
 package com.rigelramadhan.dicodingbfaasubmission.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rigelramadhan.dicodingbfaasubmission.data.remote.retrofit.ApiConfig
-import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.ItemsItem
-import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.UsersSearchResponse
-import com.rigelramadhan.dicodingbfaasubmission.util.LoadingStatus
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.rigelramadhan.dicodingbfaasubmission.data.repository.UserRepository
+import com.rigelramadhan.dicodingbfaasubmission.data.local.entity.UserEntity
 
-class MainViewModel : ViewModel() {
-    private val _usersList = MutableLiveData<List<ItemsItem>>()
-    val usersList: LiveData<List<ItemsItem>> = _usersList
+class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
+    fun getUsers(query: String = "a") = userRepository.getUsers(query)
 
-    private val _isLoading = MutableLiveData<LoadingStatus>()
-    val isLoading: LiveData<LoadingStatus> = _isLoading
+    fun getFavoriteUsers() = userRepository.getFavoriteUsers()
 
-    companion object {
-        private const val TAG = "MainViewModel"
+    fun isDataEmpty() = userRepository.isDataEmpty()
+
+    fun addUserToFavorite(userEntity: UserEntity) {
+        userRepository.setFavoriteUser(userEntity, true)
     }
 
-    init {
-        queryUsers()
-    }
-
-    fun queryUsers(query: String = "a") {
-        _isLoading.postValue(LoadingStatus.LOADING)
-        val client = ApiConfig.getApiService().searchUsers(query, ApiConfig.TOKEN)
-        client.enqueue(object : Callback<UsersSearchResponse> {
-            override fun onResponse(
-                call: Call<UsersSearchResponse>,
-                response: Response<UsersSearchResponse>
-            ) {
-                if (response.isSuccessful) {
-                    _isLoading.postValue(LoadingStatus.LOADED)
-                    _usersList.value = response.body()?.items
-                    Log.d(TAG, "${usersList.value}")
-                } else {
-                    _isLoading.postValue(LoadingStatus.FAILED)
-                    Log.e(TAG, "onResponseFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<UsersSearchResponse>, t: Throwable) {
-                _isLoading.postValue(LoadingStatus.FAILED)
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
+    fun deleteUserFromFavorite(userEntity: UserEntity) {
+        userRepository.setFavoriteUser(userEntity, false)
     }
 }

@@ -1,13 +1,14 @@
 package com.rigelramadhan.dicodingbfaasubmission.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rigelramadhan.dicodingbfaasubmission.R
 import com.rigelramadhan.dicodingbfaasubmission.adapter.UserFollowingsAdapter
+import com.rigelramadhan.dicodingbfaasubmission.data.Result
 import com.rigelramadhan.dicodingbfaasubmission.databinding.FragmentFollowingBinding
 
 class FollowingFragment : Fragment() {
@@ -22,19 +23,26 @@ class FollowingFragment : Fragment() {
         _binding = FragmentFollowingBinding.inflate(inflater, container, false)
 
         val profileActivity = activity as ProfileActivity
-        profileActivity.profileViewModel.user.observe(profileActivity) {
-            if (it.following <= 0) {
-                binding.tvPrivateFollowing.text = getString(R.string.no_following)
-            }
-        }
+        profileActivity.profileViewModel.getProfile().observe(profileActivity) { user ->
+            if (user != null) {
+                if (user.following <= 0) {
+                    binding.tvNoFollowing.text = getString(R.string.no_following)
+                }
 
-        profileActivity.profileViewModel.followings.observe(profileActivity) {
-            binding.rvFollowings.apply {
-                adapter = UserFollowingsAdapter(profileActivity, it)
-                layoutManager = LinearLayoutManager(profileActivity)
+                profileActivity.profileViewModel.getProfileFollowings(user).observe(profileActivity) {
+                    if (it is Result.Success) {
+                        binding.rvFollowings.apply {
+                            adapter = UserFollowingsAdapter(profileActivity, it.data)
+                            layoutManager = LinearLayoutManager(profileActivity)
+                        }
+
+                        binding.tvNoFollowing.visibility =
+                            if (it.data.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
+
+                    }
+                }
             }
 
-            binding.tvPrivateFollowing.visibility = if (it.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
         }
 
         return binding.root

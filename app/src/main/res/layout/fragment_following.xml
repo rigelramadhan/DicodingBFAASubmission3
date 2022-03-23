@@ -12,7 +12,7 @@
         tools:listitem="@layout/item_follow_user"/>
 
     <TextView
-        android:id="@+id/tv_private_following"
+        android:id="@+id/tv_no_following"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

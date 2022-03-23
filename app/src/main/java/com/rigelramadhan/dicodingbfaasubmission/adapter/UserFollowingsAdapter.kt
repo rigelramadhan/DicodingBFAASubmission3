@@ -28,7 +28,7 @@ class UserFollowingsAdapter(private val activity: AppCompatActivity, private val
 
         holder.binding.cardUser.setOnClickListener {
             val intent = Intent(activity, ProfileActivity::class.java)
-            intent.putExtra(ProfileActivity.EXTRA_URL, user.login)
+            intent.putExtra(ProfileActivity.EXTRA_LOGIN, user.login)
             activity.startActivity(intent)
         }
     }

@@ -4,14 +4,19 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.rigelramadhan.dicodingbfaasubmission.data.local.entity.UserEntity
 import com.rigelramadhan.dicodingbfaasubmission.databinding.ItemUserBinding
 import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.ItemsItem
 import com.rigelramadhan.dicodingbfaasubmission.view.ProfileActivity
 
-class UserAdapter(private val activity: AppCompatActivity, private val users: List<ItemsItem>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
-    inner class ViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
+class UserAdapter(
+    private val activity: AppCompatActivity,
+    private val onFavoriteClick: (UserEntity) -> Unit
+) : ListAdapter<UserEntity, UserAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +24,7 @@ class UserAdapter(private val activity: AppCompatActivity, private val users: Li
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val user = users[position]
+        val user = getItem(position)
         holder.binding.tvName.text = user.login
         holder.binding.tvUrl.text = user.htmlUrl
 
@@ -29,10 +34,24 @@ class UserAdapter(private val activity: AppCompatActivity, private val users: Li
 
         holder.binding.rlUser.setOnClickListener {
             val intent = Intent(activity, ProfileActivity::class.java)
-            intent.putExtra(ProfileActivity.EXTRA_URL, user.login)
+            intent.putExtra(ProfileActivity.EXTRA_LOGIN, user.login)
             activity.startActivity(intent)
         }
     }
 
-    override fun getItemCount() = users.size
+    inner class ViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
+
+    companion object {
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<UserEntity> =
+            object : DiffUtil.ItemCallback<UserEntity>() {
+                override fun areItemsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
+                    return oldItem.login == newItem.login
+                }
+
+                override fun areContentsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
+                    return oldItem == newItem
+                }
+
+            }
+    }
 }
