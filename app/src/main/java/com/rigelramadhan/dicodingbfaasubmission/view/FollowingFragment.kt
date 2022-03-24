@@ -23,27 +23,43 @@ class FollowingFragment : Fragment() {
         _binding = FragmentFollowingBinding.inflate(inflater, container, false)
 
         val profileActivity = activity as ProfileActivity
-        profileActivity.profileViewModel.getProfile().observe(profileActivity) { user ->
-            if (user != null) {
-                if (user.following <= 0) {
-                    binding.tvNoFollowing.text = getString(R.string.no_following)
+
+        profileActivity.profileViewModel.getProfileFollowings().observe(profileActivity) {
+            if (it is Result.Success) {
+                binding.rvFollowings.apply {
+                    adapter = UserFollowingsAdapter(profileActivity, it.data)
+                    layoutManager = LinearLayoutManager(profileActivity)
                 }
 
-                profileActivity.profileViewModel.getProfileFollowings(user).observe(profileActivity) {
-                    if (it is Result.Success) {
-                        binding.rvFollowings.apply {
-                            adapter = UserFollowingsAdapter(profileActivity, it.data)
-                            layoutManager = LinearLayoutManager(profileActivity)
-                        }
-
-                        binding.tvNoFollowing.visibility =
-                            if (it.data.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
-
-                    }
-                }
+                binding.rvFollowings.visibility = View.VISIBLE
+                binding.tvNoFollowing.visibility =
+                    if (it.data.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
+            } else if (it is Result.Loading) {
+                binding.rvFollowings.visibility = View.INVISIBLE
             }
-
         }
+
+//        profileActivity.profileViewModel.getProfile().observe(profileActivity) { user ->
+//            if (user != null) {
+//                if (user.following <= 0) {
+//                    binding.tvNoFollowing.text = getString(R.string.no_following)
+//                }
+//
+//                profileActivity.profileViewModel.getProfileFollowings(user).observe(profileActivity) {
+//                    if (it is Result.Success) {
+//                        binding.rvFollowings.apply {
+//                            adapter = UserFollowingsAdapter(profileActivity, it.data)
+//                            layoutManager = LinearLayoutManager(profileActivity)
+//                        }
+//
+//                        binding.tvNoFollowing.visibility =
+//                            if (it.data.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
+//
+//                    }
+//                }
+//            }
+//
+//        }
 
         return binding.root
     }

@@ -23,23 +23,19 @@ class FollowerFragment : Fragment() {
         _binding = FragmentFollowerBinding.inflate(inflater, container, false)
 
         val profileActivity = activity as ProfileActivity
-        profileActivity.profileViewModel.getProfile().observe(profileActivity) { user ->
-            if (user != null) {
-                if (user.followers <= 0) {
-                    binding.tvPrivateFollower.text = getString(R.string.no_follower)
+
+        profileActivity.profileViewModel.getProfileFollowers().observe(profileActivity) {
+            if (it is Result.Success) {
+                binding.rvFollowers.apply {
+                    adapter = UserFollowersAdapter(profileActivity, it.data)
+                    layoutManager = LinearLayoutManager(profileActivity)
                 }
 
-                profileActivity.profileViewModel.getProfileFollowers(user).observe(profileActivity) {
-                    if (it is Result.Success) {
-                        binding.rvFollowers.apply {
-                            adapter = UserFollowersAdapter(profileActivity, it.data)
-                            layoutManager = LinearLayoutManager(profileActivity)
-                        }
-
-                        binding.tvPrivateFollower.visibility =
-                            if (it.data.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
-                    }
-                }
+                binding.rvFollowers.visibility = View.VISIBLE
+                binding.tvPrivateFollower.visibility =
+                    if (it.data.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
+            } else if (it is Result.Loading) {
+                binding.rvFollowers.visibility = View.INVISIBLE
             }
         }
 

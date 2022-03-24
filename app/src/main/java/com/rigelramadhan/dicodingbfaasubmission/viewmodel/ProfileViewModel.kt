@@ -9,11 +9,11 @@ class ProfileViewModel(private val userProfileRepository: UserProfileRepository,
 
     fun getProfile() = userProfileRepository.getProfile(login)
 
-    fun getProfileRepos(user: UserProfileEntity) = userProfileRepository.getRepos(user)
+    fun getProfileRepos() = userProfileRepository.getRepos()
 
-    fun getProfileFollowings(user: UserProfileEntity) = userProfileRepository.getFollowings(user)
+    fun getProfileFollowings() = userProfileRepository.getFollowings()
 
-    fun getProfileFollowers(user: UserProfileEntity) = userProfileRepository.getFollowers(user)
+    fun getProfileFollowers() = userProfileRepository.getFollowers()
 
     companion object {
         private val TAG = ProfileViewModel::class.java.simpleName

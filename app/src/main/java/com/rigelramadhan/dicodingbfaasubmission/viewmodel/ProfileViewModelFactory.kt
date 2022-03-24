@@ -23,9 +23,19 @@ class ProfileViewModelFactory private constructor(
         @Volatile
         private var instance: ProfileViewModelFactory? = null
 
-        fun getInstance(context: Context, login: String): ProfileViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: ProfileViewModelFactory(Injection.provideProfileRepository(context), login)
-            }.also { instance = it }
+        fun getInstance(context: Context, login: String): ProfileViewModelFactory {
+            if (instance != null) {
+                if (instance?.login != login) {
+                    synchronized(this) {
+                        return ProfileViewModelFactory(Injection.provideProfileRepository(context), login)
+                    }
+                }
+                return instance as ProfileViewModelFactory
+            } else {
+                synchronized(this) {
+                    return instance ?: ProfileViewModelFactory(Injection.provideProfileRepository(context), login)
+                }
+            }
+        }
     }
 }

@@ -53,13 +53,13 @@ data class UserResponse(
 	val gravatarId: String,
 
 	@field:SerializedName("email")
-	val email: Any,
+	val email: Any?,
 
 	@field:SerializedName("organizations_url")
 	val organizationsUrl: String,
 
 	@field:SerializedName("hireable")
-	val hireable: Any,
+	val hireable: Any?,
 
 	@field:SerializedName("starred_url")
 	val starredUrl: String,

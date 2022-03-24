@@ -1,6 +1,7 @@
 package com.rigelramadhan.dicodingbfaasubmission.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.viewModels
@@ -25,6 +26,7 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
     val profileViewModel: ProfileViewModel by viewModels {
         val login = intent.getStringExtra(EXTRA_LOGIN)
         this.login = login!!
+        Log.d(TAG, "Login: ${this.login}")
         ProfileViewModelFactory.getInstance(this, login)
     }
 
@@ -107,7 +109,7 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if (v.id == R.id.img_favorite) {
-
+            // TODO: COMPLETE
         }
     }
 

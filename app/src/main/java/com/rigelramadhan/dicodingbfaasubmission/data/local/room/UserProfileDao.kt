@@ -17,4 +17,7 @@ interface UserProfileDao {
 
     @Query("DELETE FROM profiles WHERE login = :login")
     fun deleteProfile(login: String)
+
+    @Query("SELECT EXISTS(SELECT * FROM profiles WHERE login = :login)")
+    fun isProfileExists(login: String): Boolean
 }

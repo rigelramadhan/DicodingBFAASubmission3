@@ -1,6 +1,8 @@
 package com.rigelramadhan.dicodingbfaasubmission.adapter
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +35,7 @@ class UserAdapter(
             .into(holder.binding.imgAvatar)
 
         holder.binding.rlUser.setOnClickListener {
+            Log.d("UserAdapter", "Login: ${user.login}")
             val intent = Intent(activity, ProfileActivity::class.java)
             intent.putExtra(ProfileActivity.EXTRA_LOGIN, user.login)
             activity.startActivity(intent)
@@ -48,6 +51,7 @@ class UserAdapter(
                     return oldItem.login == newItem.login
                 }
 
+                @SuppressLint("DiffUtilEquals")
                 override fun areContentsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
                     return oldItem == newItem
                 }

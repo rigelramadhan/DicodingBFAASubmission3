@@ -17,10 +17,10 @@ data class UserProfileEntity(
     val followingUrl: String,
 
     @field:ColumnInfo(name = "twitterUsername")
-    val twitterUsername: String,
+    val twitterUsername: String?,
 
     @field:ColumnInfo(name = "bio")
-    val bio: String,
+    val bio: String?,
 
     @field:ColumnInfo(name = "createdAt")
     val createdAt: String,
@@ -32,7 +32,7 @@ data class UserProfileEntity(
     val type: String,
 
     @field:ColumnInfo(name = "blog")
-    val blog: String,
+    val blog: String?,
 
     @field:ColumnInfo(name = "subscriptionsUrl")
     val subscriptionsUrl: String,
@@ -44,7 +44,7 @@ data class UserProfileEntity(
     val siteAdmin: Boolean,
 
     @field:ColumnInfo(name = "company")
-    val company: String,
+    val company: String?,
 
     @field:ColumnInfo(name = "id")
     @field:PrimaryKey
@@ -57,13 +57,13 @@ data class UserProfileEntity(
     val gravatarId: String,
 
     @field:ColumnInfo(name = "email")
-    val email: String,
+    val email: String?,
 
     @field:ColumnInfo(name = "organizationsUrl")
-    val organizationsUrl: String,
+    val organizationsUrl: String?,
 
     @field:ColumnInfo(name = "hireable")
-    val hireable: String,
+    val hireable: String?,
 
     @field:ColumnInfo(name = "starredUrl")
     val starredUrl: String,
@@ -96,7 +96,6 @@ data class UserProfileEntity(
     val following: Int,
 
     @field:ColumnInfo(name = "name")
-    @Nullable
     val name: String?,
 
     @field:ColumnInfo(name = "location")
