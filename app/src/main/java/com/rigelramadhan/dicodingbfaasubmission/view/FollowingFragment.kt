@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.rigelramadhan.dicodingbfaasubmission.R
 import com.rigelramadhan.dicodingbfaasubmission.adapter.UserFollowingsAdapter
 import com.rigelramadhan.dicodingbfaasubmission.data.Result
 import com.rigelramadhan.dicodingbfaasubmission.databinding.FragmentFollowingBinding
@@ -38,28 +37,6 @@ class FollowingFragment : Fragment() {
                 binding.rvFollowings.visibility = View.INVISIBLE
             }
         }
-
-//        profileActivity.profileViewModel.getProfile().observe(profileActivity) { user ->
-//            if (user != null) {
-//                if (user.following <= 0) {
-//                    binding.tvNoFollowing.text = getString(R.string.no_following)
-//                }
-//
-//                profileActivity.profileViewModel.getProfileFollowings(user).observe(profileActivity) {
-//                    if (it is Result.Success) {
-//                        binding.rvFollowings.apply {
-//                            adapter = UserFollowingsAdapter(profileActivity, it.data)
-//                            layoutManager = LinearLayoutManager(profileActivity)
-//                        }
-//
-//                        binding.tvNoFollowing.visibility =
-//                            if (it.data.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
-//
-//                    }
-//                }
-//            }
-//
-//        }
 
         return binding.root
     }

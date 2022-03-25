@@ -55,38 +55,6 @@ class RepoFragment : Fragment() {
             }
         }
 
-//        profileActivity.profileViewModel.getProfile().observe(profileActivity) { user ->
-//            if (user != null) {
-//                profileActivity.profileViewModel.getProfileRepos(user).observe(profileActivity) {
-//                    when (it) {
-//                        is Result.Success -> {
-//                            profileActivity.progressBar.visibility = View.INVISIBLE
-//                            val data = it.data
-//                            binding.rvRepos.apply {
-//                                adapter = RepoAdapter(data)
-//                                layoutManager = LinearLayoutManager(profileActivity)
-//                            }
-//
-//                            binding.tvPublicReposStatus.visibility =
-//                                if (data.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
-//                        }
-//
-//                        is Result.Error -> {
-//                            profileActivity.progressBar.visibility = View.INVISIBLE
-//                            Toast.makeText(requireContext(), "Can't load profile: ${it.error}", Toast.LENGTH_SHORT).show()
-//
-//                            binding.tvPublicReposStatus.text = getString(R.string.repositories_failed_to_load)
-//                        }
-//
-//                        is Result.Loading -> {
-//                            profileActivity.progressBar.visibility = View.VISIBLE
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
-
         return binding.root
     }
 

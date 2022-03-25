@@ -1,23 +1,17 @@
 package com.rigelramadhan.dicodingbfaasubmission.adapter
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rigelramadhan.dicodingbfaasubmission.data.local.entity.UserEntity
 import com.rigelramadhan.dicodingbfaasubmission.databinding.ItemUserBinding
-import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.ItemsItem
-import com.rigelramadhan.dicodingbfaasubmission.view.ProfileActivity
 
-class UserAdapter(
-    private val activity: AppCompatActivity,
-    private val onFavoriteClick: (UserEntity) -> Unit
+class UserAdapter (
+    private val onClickListener: (UserEntity) -> Unit
 ) : ListAdapter<UserEntity, UserAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,12 +28,7 @@ class UserAdapter(
             .load(user.avatarUrl)
             .into(holder.binding.imgAvatar)
 
-        holder.binding.rlUser.setOnClickListener {
-            Log.d("UserAdapter", "Login: ${user.login}")
-            val intent = Intent(activity, ProfileActivity::class.java)
-            intent.putExtra(ProfileActivity.EXTRA_LOGIN, user.login)
-            activity.startActivity(intent)
-        }
+        holder.binding.rlUser.setOnClickListener { onClickListener(user) }
     }
 
     inner class ViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
@@ -55,7 +44,6 @@ class UserAdapter(
                 override fun areContentsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
                     return oldItem == newItem
                 }
-
             }
     }
 }

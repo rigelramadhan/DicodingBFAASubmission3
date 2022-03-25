@@ -1,6 +1,5 @@
 package com.rigelramadhan.dicodingbfaasubmission.data.local.entity
 
-import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -102,5 +101,8 @@ data class UserProfileEntity(
     val location: String?,
 
     @field:ColumnInfo(name = "nodeId")
-    val nodeId: String
+    val nodeId: String,
+
+    @field:ColumnInfo(name = "isFavorite")
+    var isFavorite: Boolean
 )

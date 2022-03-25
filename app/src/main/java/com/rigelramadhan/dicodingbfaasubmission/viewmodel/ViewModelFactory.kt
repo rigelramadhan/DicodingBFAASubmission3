@@ -6,13 +6,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.rigelramadhan.dicodingbfaasubmission.data.repository.UserRepository
 import com.rigelramadhan.dicodingbfaasubmission.di.Injection
 
-class MainViewModelFactory private constructor(
+class ViewModelFactory private constructor(
     private val userRepository: UserRepository
     ) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return MainViewModel(userRepository) as T
+        } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
+            return FavoriteViewModel(userRepository) as T
         }
 
         throw IllegalArgumentException("Wrong ViewModel class: " + modelClass.name)
@@ -20,10 +22,10 @@ class MainViewModelFactory private constructor(
 
     companion object {
         @Volatile
-        private var instance: MainViewModelFactory? = null
-        fun getInstance(context: Context): MainViewModelFactory =
+        private var instance: ViewModelFactory? = null
+        fun getInstance(context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: MainViewModelFactory(Injection.provideUserRepository(context))
+                instance ?: ViewModelFactory(Injection.provideUserRepository(context))
             }.also { instance = it }
     }
 }

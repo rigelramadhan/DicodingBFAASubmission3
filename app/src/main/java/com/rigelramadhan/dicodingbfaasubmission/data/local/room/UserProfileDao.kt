@@ -12,9 +12,6 @@ interface UserProfileDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertProfile(user: UserProfileEntity)
 
-    @Query("DELETE FROM profiles")
-    fun deleteAllProfiles()
-
     @Query("DELETE FROM profiles WHERE login = :login")
     fun deleteProfile(login: String)
 

@@ -1,12 +1,16 @@
 package com.rigelramadhan.dicodingbfaasubmission.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -17,7 +21,7 @@ import com.rigelramadhan.dicodingbfaasubmission.databinding.ActivityProfileBindi
 import com.rigelramadhan.dicodingbfaasubmission.viewmodel.ProfileViewModel
 import com.rigelramadhan.dicodingbfaasubmission.viewmodel.ProfileViewModelFactory
 
-class ProfileActivity : AppCompatActivity(), View.OnClickListener {
+class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
     lateinit var progressBar: ProgressBar
@@ -39,9 +43,30 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
 
         val actionBar = supportActionBar
         actionBar?.title = "Profile"
+        actionBar?.setDisplayShowHomeEnabled(true)
 
         profileViewModel.getProfile().observe(this) { user ->
             if (user != null) {
+                val favIcon = binding.imgFavorite
+
+                if (user.isFavorite) {
+                    favIcon.setImageDrawable(ContextCompat.getDrawable(favIcon.context, R.drawable.ic_baseline_favorite_24))
+                } else {
+                    favIcon.setImageDrawable(ContextCompat.getDrawable(favIcon.context, R.drawable.ic_baseline_favorite_border_24))
+                }
+
+                favIcon.setOnClickListener {
+                    if (user.isFavorite) {
+                        profileViewModel.deleteUserFromFavorite(user.login)
+                        favIcon.setImageDrawable(ContextCompat.getDrawable(favIcon.context, R.drawable.ic_baseline_favorite_border_24))
+                        user.isFavorite = false
+                    } else {
+                        profileViewModel.addUserToFavorite(user.login)
+                        favIcon.setImageDrawable(ContextCompat.getDrawable(favIcon.context, R.drawable.ic_baseline_favorite_24))
+                        user.isFavorite = true
+                    }
+                }
+
                 binding.tvName.apply {
                     text = user.name
                     visibility = View.VISIBLE
@@ -84,19 +109,7 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
                     .load(user.avatarUrl)
                     .into(binding.imgAvatar)
             }
-
         }
-
-//        profileViewModel.isLoading.observe(this) { loading ->
-//            when (loading) {
-//                LoadingStatus.LOADING -> binding.progressBar.visibility = View.VISIBLE
-//                LoadingStatus.FAILED -> {
-//                    binding.progressBar.visibility = View.INVISIBLE
-//                    Toast.makeText(this@ProfileActivity, "Users list failed to show.", Toast.LENGTH_SHORT).show()
-//                }
-//                else -> binding.progressBar.visibility = View.INVISIBLE
-//            }
-//        }
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         val viewPager: ViewPager2 = binding.viewPager
@@ -107,10 +120,19 @@ class ProfileActivity : AppCompatActivity(), View.OnClickListener {
         }.attach()
     }
 
-    override fun onClick(v: View) {
-        if (v.id == R.id.img_favorite) {
-            // TODO: COMPLETE
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.settings_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.preferences) {
+            val intent = Intent(this, PreferencesActivity::class.java)
+            startActivity(intent)
         }
+
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

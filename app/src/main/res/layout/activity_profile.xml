@@ -20,25 +20,14 @@
 
     <TextView
         android:id="@+id/tv_name"
+        style="@style/Font.Body.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Font.Body.Medium"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="@+id/img_avatar"
-        app:layout_constraintStart_toEndOf="@+id/img_avatar"
         android:layout_marginStart="16dp"
-        android:text="@string/user_name"/>
-
-    <ImageView
-        android:id="@+id/img_favorite"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@drawable/ic_baseline_favorite_border_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_name"
-        app:layout_constraintBottom_toBottomOf="@id/tv_name"
-        android:layout_marginEnd="24dp"
-        android:contentDescription="@string/description_favorite_icon" />
+        android:text="@string/user_name"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/img_avatar"
+        app:layout_constraintTop_toTopOf="@+id/img_avatar" />
 
     <TextView
         android:id="@+id/tv_username"
@@ -172,10 +161,8 @@
         app:layout_constraintTop_toBottomOf="@+id/ll_info"
         android:layout_marginTop="16dp"
         android:elevation="4dp"
-        android:background="?attr/colorPrimary"
-        app:tabIndicatorColor="@color/blue"
-        app:tabSelectedTextColor="@color/blue"
-        app:tabTextColor="@color/black"/>
+        style="@style/TabLayout"
+        />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
@@ -184,6 +171,18 @@
         app:layout_constraintTop_toBottomOf="@id/tabs"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+
+    <ImageView
+        android:id="@+id/img_favorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/ic_baseline_favorite_border_24"
+        style="@style/IconTint"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_name"
+        android:contentDescription="@string/description_favorite_icon" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

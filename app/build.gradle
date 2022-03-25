@@ -17,7 +17,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "GITHUB_TOKEN", '"token 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"')
+        buildConfigField("String", "GITHUB_TOKEN", '"token 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"')
     }
 
     buildFeatures {
@@ -71,4 +71,7 @@ dependencies {
     // ROOM
     implementation 'androidx.room:room-runtime:2.4.2'
     kapt 'androidx.room:room-compiler:2.4.2'
+
+    // DATA STORE
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }

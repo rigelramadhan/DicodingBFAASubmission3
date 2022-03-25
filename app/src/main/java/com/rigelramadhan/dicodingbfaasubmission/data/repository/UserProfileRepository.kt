@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.rigelramadhan.dicodingbfaasubmission.data.Result
 import com.rigelramadhan.dicodingbfaasubmission.data.local.entity.UserProfileEntity
+import com.rigelramadhan.dicodingbfaasubmission.data.local.room.UserDao
 import com.rigelramadhan.dicodingbfaasubmission.data.local.room.UserProfileDao
 import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.FollowersResponseItem
 import com.rigelramadhan.dicodingbfaasubmission.data.remote.response.FollowingsResponseItem
@@ -20,6 +21,7 @@ import retrofit2.Response
 class UserProfileRepository private constructor(
     private val apiService: ApiService,
     val userProfileDao: UserProfileDao,
+    val userDao: UserDao,
     private val appExecutors: AppExecutors
 ) {
     private var profile = MutableLiveData<UserProfileEntity>()
@@ -38,6 +40,8 @@ class UserProfileRepository private constructor(
                 if (response.isSuccessful) {
                     val profileData = response.body()!!
                     appExecutors.diskIO.execute {
+                        val user = if (userDao.isUserExists(profileData.login))
+                            userDao.getUser(profileData.login).isFavorite else false
                         val profileEntity = UserProfileEntity(
                             profileData.gistsUrl, profileData.reposUrl, profileData.followingUrl, profileData.twitterUsername,
                             profileData.bio, profileData.createdAt, profileData.login, profileData.type, profileData.blog,
@@ -46,7 +50,7 @@ class UserProfileRepository private constructor(
                             profileData.hireable?.toString(), profileData.starredUrl, profileData.followersUrl, profileData.publicGists,
                             profileData.url, profileData.receivedEventsUrl, profileData.followers, profileData.avatarUrl,
                             profileData.eventsUrl, profileData.htmlUrl, profileData.following, profileData.name, profileData.location,
-                            profileData.nodeId
+                            profileData.nodeId, user
                         )
                         this@UserProfileRepository.profile.postValue(profileEntity)
                         userProfileDao.deleteProfile(profileEntity.login)
@@ -73,12 +77,13 @@ class UserProfileRepository private constructor(
             }
         }
 
-//        val localProfileData = userProfileDao.getProfile(login)
-//        Log.d(TAG, localProfileData.toString())
-//        profile.addSource(localProfileData) {
-//            profile.postValue(it)
-//        }
         return profile
+    }
+
+    fun setFavoriteUser(login: String, isFavorite: Boolean) {
+        appExecutors.diskIO.execute {
+            userDao.updateUserFavorite(login, isFavorite)
+        }
     }
 
     fun getRepos(): LiveData<Result<List<RepoResponseItem>>> = repos
@@ -168,10 +173,11 @@ class UserProfileRepository private constructor(
         fun getInstance(
             apiService: ApiService,
             userProfileDao: UserProfileDao,
+            userDao: UserDao,
             appExecutors: AppExecutors
         ): UserProfileRepository =
             instance ?: synchronized(this) {
-                instance ?: UserProfileRepository(apiService, userProfileDao, appExecutors)
+                instance ?: UserProfileRepository(apiService, userProfileDao, userDao, appExecutors)
             }.also { instance = it }
     }
 }

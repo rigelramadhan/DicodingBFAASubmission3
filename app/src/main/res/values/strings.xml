@@ -31,4 +31,7 @@
     <string name="description_favorite_icon">Favorite Icon</string>
     <string name="followings_not_found">Followings not found</string>
     <string name="repositories_failed_to_load">Repositories failed to load.</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="preferences">Preferences</string>
+    <string name="no_favorite_user">No favorite user found</string>
 </resources>

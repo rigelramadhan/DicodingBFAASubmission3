@@ -9,14 +9,23 @@ interface UserDao {
     @Query("SELECT * FROM users")
     fun getUsers(): LiveData<List<UserEntity>>
 
+    @Query("SELECT * FROM users WHERE login = :login")
+    fun getUser(login: String): UserEntity
+
     @Query("SELECT * FROM users WHERE isFavorite = 1")
     fun getFavoriteUsers(): LiveData<List<UserEntity>>
+
+    @Query("SELECT EXISTS(SELECT * FROM users WHERE login = :login)")
+    fun isUserExists(login: String): Boolean
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertUsers(users: List<UserEntity>)
 
     @Update
-    fun updateUsers(user: UserEntity)
+    fun userFavorite(user: UserEntity)
+
+    @Query("UPDATE users SET isFavorite = :favoriteState WHERE login = :login")
+    fun updateUserFavorite(login: String, favoriteState: Boolean)
 
     @Query("DELETE FROM users WHERE isFavorite = 0")
     fun deleteAllUsers()

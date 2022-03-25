@@ -34,24 +34,21 @@
             app:cardBackgroundColor="@color/blue">
 
             <TextView
+                android:id="@+id/tv_language"
+                style="@style/Font.Captions.OnBackground"
                 android:layout_marginHorizontal="6dp"
                 android:layout_marginVertical="1dp"
-                android:id="@+id/tv_language"
-                style="@style/Font.Captions"
-                android:textColor="@color/white"
-                android:text="@string/repo_name"
-                />
+                android:text="@string/repo_name" />
         </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tv_description"
             style="@style/Font.Captions"
-            android:text="@string/description"
-            android:layout_marginEnd="16dp"
             android:layout_below="@+id/tv_name"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:maxLines="1"
-            />
+            android:text="@string/description" />
     </RelativeLayout>
 
 

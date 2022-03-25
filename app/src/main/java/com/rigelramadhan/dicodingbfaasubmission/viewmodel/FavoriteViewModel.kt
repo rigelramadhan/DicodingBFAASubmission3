@@ -1,16 +1,18 @@
 package com.rigelramadhan.dicodingbfaasubmission.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import com.rigelramadhan.dicodingbfaasubmission.data.local.entity.UserEntity
+import com.rigelramadhan.dicodingbfaasubmission.data.repository.UserRepository
 
-class FavoriteViewModel(application: Application) : ViewModel() {
+class FavoriteViewModel(private val userRepository: UserRepository) : ViewModel() {
 
+    fun getFavoriteUser() = userRepository.getFavoriteUsers()
 
-    class ViewModelFactory (private val mApplication: Application) : ViewModelProvider.NewInstanceFactory() {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FavoriteViewModel(mApplication) as T
-        }
+    fun addUserToFavorite(userEntity: UserEntity) {
+        userRepository.setFavoriteUser(userEntity, true)
+    }
+
+    fun deleteUserFromFavorite(userEntity: UserEntity) {
+        userRepository.setFavoriteUser(userEntity, false)
     }
 }
